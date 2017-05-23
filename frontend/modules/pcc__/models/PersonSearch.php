@@ -19,7 +19,7 @@ class PersonSearch extends Person
     {
         return [
             [['id', 'age'], 'integer'],
-            [['prename', 'name', 'lname', 'birth', 'addr', 'moo', 'prov_code', 'amp_code', 'tmb_code', 'lat', 'lon', 'rapid', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'safe'],
+            [['prename', 'name', 'lname', 'birth', 'addr', 'moo', 'prov_code', 'amp_code', 'tmb_code', 'lat', 'lon', 'rapid', 'created_by', 'updated_by', 'created_at', 'update_at'], 'safe'],
         ];
     }
 
@@ -43,8 +43,8 @@ class PersonSearch extends Person
     {
         $query = Person::find();
         $query->joinWith('province')
-                ->joinWith('ampur')
-                ->joinWith('tambon');
+              ->joinWith('ampur')
+              ->joinWith('tambon');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -70,15 +70,16 @@ class PersonSearch extends Person
             ->andFilterWhere(['like', 'addr', $this->addr])
             ->andFilterWhere(['like', 'moo', $this->moo])
             ->andFilterWhere(['like', 'c_province.changwatname', $this->prov_code])
-            ->andFilterWhere(['like', 'amp_code', $this->amp_code])
-            ->andFilterWhere(['like', 'tmb_code', $this->tmb_code])
+            //->andFilterWhere(['like', 'prov_code', $this->prov_code])
+            ->andFilterWhere(['like', 'c_amp_code.ampurname', $this->amp_code])
+            ->andFilterWhere(['like', 'c_tambon.tambonname', $this->tmb_code])
             ->andFilterWhere(['like', 'lat', $this->lat])
             ->andFilterWhere(['like', 'lon', $this->lon])
             ->andFilterWhere(['like', 'rapid', $this->rapid])
             ->andFilterWhere(['like', 'created_by', $this->created_by])
             ->andFilterWhere(['like', 'updated_by', $this->updated_by])
             ->andFilterWhere(['like', 'created_at', $this->created_at])
-            ->andFilterWhere(['like', 'updated_at', $this->updated_at]);
+            ->andFilterWhere(['like', 'update_at', $this->update_at]);
 
         return $dataProvider;
     }

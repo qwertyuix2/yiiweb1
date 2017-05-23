@@ -18,9 +18,7 @@ use yii\widgets\DetailView;
             'age',
             'addr',
             'moo',
-           
-              'province.changwatname',
-            
+            'prov_code',
             'amp_code',
             'tmb_code',
             'lat',
@@ -29,7 +27,7 @@ use yii\widgets\DetailView;
             'created_by',
             'updated_by',
             'created_at',
-            'updated_at',
+            'update_at',
         ],
     ]) ?>
 

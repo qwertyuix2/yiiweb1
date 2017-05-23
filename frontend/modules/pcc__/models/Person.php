@@ -30,7 +30,7 @@ use frontend\modules\pcc\models\Tambon;
  * @property string $created_by
  * @property string $updated_by
  * @property string $created_at
- * @property string $updated_at
+ * @property string $update_at
  */
 class Person extends \yii\db\ActiveRecord
 {
@@ -51,7 +51,9 @@ class Person extends \yii\db\ActiveRecord
             [['name','lname'],'required'],
             [['birth'], 'safe'],
             [['age'], 'integer'],
-            [['prename', 'name', 'lname', 'addr', 'moo', 'prov_code', 'amp_code', 'tmb_code', 'lat', 'lon', 'rapid', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'string', 'max' => 255],
+            [['prename'], 'string', 'max' => 30],
+            [['name', 'lname', 'addr', 'lat', 'lon', 'rapid', 'created_by', 'updated_by', 'created_at', 'update_at'], 'string', 'max' => 255],
+            [['moo', 'prov_code', 'amp_code', 'tmb_code'], 'string', 'max' => 10],
         ];
     }
 
@@ -62,56 +64,53 @@ class Person extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'prename' => 'Prename',
-            'name' => 'Name',
-            'lname' => 'Lname',
-            'birth' => 'Birth',
-            'age' => 'Age',
-            'addr' => 'Addr',
-            'moo' => 'Moo',
-            'prov_code' => 'Prov Code',
-            'amp_code' => 'Amp Code',
-            'tmb_code' => 'Tmb Code',
+            'prename' => 'คำนำหน้า',
+            'name' => 'ชื่อ',
+            'lname' => 'นามสกุล',
+            'birth' => 'วันเกิด',
+            'age' => 'อายุ',
+            'addr' => 'ที่อยู่',
+            'moo' => 'หมู่',
+            'prov_code' => 'จังหวัด',
+            'amp_code' => 'อำเภอ',
+            'tmb_code' => 'ตำบล',
             'lat' => 'Lat',
             'lon' => 'Lon',
             'rapid' => 'Rapid',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'update_at' => 'Update At',
         ];
     }
-    
     public function behaviors() {
-       return [
-           [
-               'class'=>  TimestampBehavior::className(),
-               'value'=> new Expression('NOW()'),
-               
-           ],
-           
-           ['class'=> BlameableBehavior::className()]
-       ];
+        return[
+            ['class'=>  TimestampBehavior::className(),
+                'value'=> new Expression('NOW()')
+                ],
+            
+            ['class'=>  BlameableBehavior::className()]
+                
+        ];
     }
-    // join 
-    public function getProvince(){
-       return $this->hasOne(Province::className(),[
-           'changwatcode'=>'prov_code'
-       ]); 
-    }
-    
-    public function getAmpur(){
-        return $this->hasOne(Ampur::className(),[
-            'ampurcodefull'=>'amp_code'
-        ]);
-    }
-    
-    public function getTambon(){
-        return $this->hasOne(Tambon::className(),[
-            'tamboncodefull'=>'tmb_code'
-        ]);
-    }
-    
-    
-    
+// join
+public function getProvince(){
+    return $this->hasOne(Province::className(),[
+        'changwatcode'=>'prov_code'
+        
+    ]);
+ }
+ public function getAmpur(){
+     return $this->hasOne(Ampur::className(),[
+         'ampurcodefull'=>'amp_code'
+     ] );
+     
+ }
+  public function getTambon(){
+     return $this->hasOne(Tambon::className(),[
+         'tamboncodefull'=>'tmb_code'
+     ] );
+     
+ }
+ 
 }

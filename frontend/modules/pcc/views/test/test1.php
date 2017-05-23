@@ -1,11 +1,11 @@
 <?php
 use yii\helpers\Html;
 
-echo 'ok test1';
-echo '<hr>';
+echo "OK test1";
+echo "<hr>";
+?>
+<b> HTML tag </b><br>
+<?php
 
-echo Html::a(
-        '<i class="glyphicon glyphicon-play"></i> go to test2 -->',
-        ['/pcc/test/test2','id'=>1,'name'=>'yui'],
-        ['class'=>'btn btn-success']
-        );
+echo Html::a('<i class="glyphicon glyphicon-ok"></i> ไป test2',['/pcc/test/test2','id'=>1,'name'=>'a'],['class'=>'btn btn-success']);
+

@@ -1,7 +1,5 @@
 <?php
-
 namespace frontend\modules\pcc\controllers;
-
 use Yii;
 use frontend\modules\pcc\models\Person;
 use frontend\modules\pcc\models\PersonSearch;
@@ -13,12 +11,10 @@ use yii\helpers\Html;
 use frontend\modules\pcc\models\Ampur;
 use frontend\modules\pcc\models\Tambon;
 use yii\helpers\ArrayHelper;
-
 /**
  * PersonController implements the CRUD actions for Person model.
  */
 class PersonController extends Controller {
-
     /**
      * @inheritdoc
      */
@@ -33,7 +29,6 @@ class PersonController extends Controller {
             ],
         ];
     }
-
     /**
      * Lists all Person models.
      * @return mixed
@@ -41,13 +36,11 @@ class PersonController extends Controller {
     public function actionIndex() {
         $searchModel = new PersonSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
         ]);
     }
-
     /**
      * Displays a single Person model.
      * @param integer $id
@@ -71,7 +64,6 @@ class PersonController extends Controller {
             ]);
         }
     }
-
     /**
      * Creates a new Person model.
      * For ajax request will return json object
@@ -81,7 +73,6 @@ class PersonController extends Controller {
     public function actionCreate() {
         $request = Yii::$app->request;
         $model = new Person();
-
         if ($request->isAjax) {
             /*
              *   Process for ajax request
@@ -89,7 +80,7 @@ class PersonController extends Controller {
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
-                    'title' => "ขึ้นทะเบียนผู้ป่วย",
+                    'title' => "Create new Person",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -127,7 +118,6 @@ class PersonController extends Controller {
             }
         }
     }
-
     /**
      * Updates an existing Person model.
      * For ajax request will return json object
@@ -145,7 +135,6 @@ class PersonController extends Controller {
                 ->asArray()
                 ->all();
         $amp = ArrayHelper::map($amp, 'id', 'name');
-
         $tmb = Tambon::find()
                 ->select('tamboncodefull as id,tambonname as name')
                 ->where(['ampurcode' => $model->amp_code])
@@ -153,7 +142,6 @@ class PersonController extends Controller {
                 ->all();
         $tmb = ArrayHelper::map($tmb, 'id', 'name');
         //จบเพิ่ม
-
         if ($request->isAjax) {
             /*
              *   Process for ajax request
@@ -203,7 +191,6 @@ class PersonController extends Controller {
             }
         }
     }
-
     /**
      * Delete an existing Person model.
      * For ajax request will return json object
@@ -214,7 +201,6 @@ class PersonController extends Controller {
     public function actionDelete($id) {
         $request = Yii::$app->request;
         $this->findModel($id)->delete();
-
         if ($request->isAjax) {
             /*
              *   Process for ajax request
@@ -228,7 +214,6 @@ class PersonController extends Controller {
             return $this->redirect(['index']);
         }
     }
-
     /**
      * Delete multiple existing Person model.
      * For ajax request will return json object
@@ -243,7 +228,6 @@ class PersonController extends Controller {
             $model = $this->findModel($pk);
             $model->delete();
         }
-
         if ($request->isAjax) {
             /*
              *   Process for ajax request
@@ -257,7 +241,6 @@ class PersonController extends Controller {
             return $this->redirect(['index']);
         }
     }
-
     /**
      * Finds the Person model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -272,5 +255,4 @@ class PersonController extends Controller {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
 }

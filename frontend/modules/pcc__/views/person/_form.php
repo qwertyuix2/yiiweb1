@@ -1,5 +1,4 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\widgets\DatePicker;
@@ -7,7 +6,6 @@ use frontend\modules\pcc\models\Province;
 use yii\helpers\ArrayHelper;
 use kartik\widgets\DepDrop;
 use yii\helpers\Url;
-
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\pcc\models\Person */
 /* @var $form yii\widgets\ActiveForm */

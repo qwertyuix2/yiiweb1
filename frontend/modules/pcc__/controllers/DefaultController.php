@@ -1,12 +1,10 @@
 <?php
 
 namespace frontend\modules\pcc\controllers;
-
 use yii\web\Controller;
 use yii\helpers\Json;
 use frontend\modules\pcc\models\Ampur;
 use frontend\modules\pcc\models\Tambon;
-
 /**
  * Default controller for the `pcc` module
  */

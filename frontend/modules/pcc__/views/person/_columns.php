@@ -1,10 +1,10 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\Html;
-use frontend\modules\pcc\models\Province;
 use yii\helpers\ArrayHelper;
+use frontend\modules\pcc\models\Province;
 use frontend\modules\pcc\models\Ampur;
-
+use frontend\modules\pcc\models\Tambon;
 return [
     [
         'class' => 'kartik\grid\CheckboxColumn',
@@ -16,16 +16,19 @@ return [
     ],
     [
          'class'=>'\kartik\grid\DataColumn',
-         'attribute'=>'rapid', 
+         'attribute'=>'rapid',
          'label'=>'',
          'format'=>'Html',
-         'contentOptions'=>function($model){
-            return ['style'=>"background-color:$model->rapid"];
+         'contentOptions'=> function($model){
+             return['style'=>"background-color:$model->rapid"];
          },
-         'filter'=>['green'=>'green','yellow'=>'yellow'],
+         'filter'=>['green'=>'green','yellow'=>'yellow','red'=>'red'],
          'value'=>function($model){
-              return Html::a('<i class="glyphicon glyphicon-search"></i>',['/pcc/visit/index','id'=>$model->id],['class'=>'btn btn-default btn-sm']);            
+             return Html::a('<i class="glyphicon glyphicon-search"></i>',
+                     ['/pcc/visit/index','id'=>$model->id],
+                     ['class'=>'btn btn-default btn-sm']);
          }
+         
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
@@ -57,27 +60,29 @@ return [
     // ],
     [
          'class'=>'\kartik\grid\DataColumn',
+        //'attribute'=>'province.changwatname',
          'attribute'=>'prov_code',
          'value'=>function($model){
              return $model->province->changwatname;
          },
-          'filter'=> ArrayHelper::map(Province::find()->all(),'changwatname','changwatname')
-    ],
-   [
+         'filter'=> ArrayHelper::map(Province::find()->all(),'changwatname','changwatname')
+                 
+         ],
+     [
          'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'amp_code',
-       'value'=>function($model){
+         'attribute'=>'amp_code',
+         'value'=>function($model){
              return $model->ampur->ampurname;
          }
-   ],
+     ],
      [
          'class'=>'\kartik\grid\DataColumn',
          'attribute'=>'tmb_code',
          'value'=>function($model){
              return $model->tambon->tambonname;
          }
-         
-    ],
+
+     ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'lat',
@@ -96,7 +101,7 @@ return [
     // ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'updated_by',
+        // 'attribute'=>'update_by',
     // ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
@@ -104,7 +109,7 @@ return [
     // ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'updated_at',
+        // 'attribute'=>'update_at',
     // ],
     [
         'class' => 'kartik\grid\ActionColumn',
@@ -112,7 +117,7 @@ return [
         'vAlign'=>'middle',
         'urlCreator' => function($action, $model, $key, $index) { 
                 return Url::to([$action,'id'=>$key]);
-        },        
+        },
         'viewOptions'=>['role'=>'modal-remote','title'=>'View','data-toggle'=>'tooltip'],
         'updateOptions'=>['role'=>'modal-remote','title'=>'Update', 'data-toggle'=>'tooltip'],
         'deleteOptions'=>['role'=>'modal-remote','title'=>'Delete', 
